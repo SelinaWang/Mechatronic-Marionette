@@ -121,7 +121,7 @@ preButtonState = buttonRead; // so our loops behaves itself
         currentMillis = millis();
       if (currentMillis - previousMillis > 1000) {            // wait for two second
       previousMillis = currentMillis;
-      mode0counter++;
+      mode1counter++;
       rightMotor->run(RELEASE);
       leftMotor->run(FORWARD);
       }
@@ -130,7 +130,7 @@ preButtonState = buttonRead; // so our loops behaves itself
         currentMillis = millis();
       if (currentMillis - previousMillis > 3000) {            // wait for two second
       previousMillis = currentMillis;
-      mode0counter++;
+      mode1counter++;
       rightMotor->run(RELEASE);
       leftMotor->run(RELEASE);
       }
@@ -139,7 +139,7 @@ preButtonState = buttonRead; // so our loops behaves itself
         currentMillis = millis();
       if (currentMillis - previousMillis > 1000) {            // wait for two second
       previousMillis = currentMillis;
-      mode0counter++;
+      mode1counter++;
       rightMotor->run(RELEASE);
       leftMotor->run(BACKWARD);
       }
@@ -148,7 +148,6 @@ preButtonState = buttonRead; // so our loops behaves itself
         currentMillis = millis();
       if (currentMillis - previousMillis > 3000) {            // wait for two second
       previousMillis = currentMillis;
-      mode0counter++;
       rightMotor->run(RELEASE);
       leftMotor->run(RELEASE);
       mode1counter = 0;
@@ -162,6 +161,7 @@ preButtonState = buttonRead; // so our loops behaves itself
       previousMillis = currentMillis;
     leftMotor->run(FORWARD);
     rightMotor->run(FORWARD);
+    mode2counter++;
     }
     }
     if (mode2counter == 1) {
@@ -181,6 +181,7 @@ preButtonState = buttonRead; // so our loops behaves itself
       previousMillis = currentMillis;
     leftMotor->run(FORWARD);
     rightMotor->run(BACKWARD);
+    mode3counter++;
     }
     }
     if (mode3counter == 1) {
@@ -200,6 +201,7 @@ preButtonState = buttonRead; // so our loops behaves itself
       previousMillis = currentMillis;
     leftMotor->run(FORWARD);
     rightMotor->run(RELEASE);
+    mode4counter++;
     }
     }
     if (mode4counter == 1) {
@@ -208,6 +210,7 @@ preButtonState = buttonRead; // so our loops behaves itself
       previousMillis = currentMillis;
     rightMotor->run(FORWARD);
     leftMotor->run(RELEASE);
+    mode4counter++;
     }
     }
     if (mode4counter == 2) {
@@ -216,6 +219,7 @@ preButtonState = buttonRead; // so our loops behaves itself
       previousMillis = currentMillis;   
     leftMotor->run(BACKWARD);
     rightMotor->run(RELEASE);
+    mode4counter++;
     }
     }
     if (mode4counter == 3) {
