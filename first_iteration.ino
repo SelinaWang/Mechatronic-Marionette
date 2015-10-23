@@ -29,6 +29,11 @@ long lastTimeDebounce = 0; // when did we last change the outputs
 long debounceDelay = 100; // let's make this a decent delay
 unsigned long currentMillis = 0; // Millis used to determine how long each motion is
 unsigned long previousMillis = 0;
+int mode0counter = 0;
+int mode1counter = 0;
+int mode2counter = 0;
+int mode3counter = 0;
+int mode4counter = 0;
 
 void setup() {
      pinMode(buttonPin, INPUT); // let's define inputs and outputs here
@@ -38,6 +43,7 @@ void setup() {
     // Set the speed to start, from 0 (off) to 255 (max speed)
   leftMotor->setSpeed(150);
   rightMotor->setSpeed(150);
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -54,7 +60,7 @@ if (buttonRead != preButtonState) { // if the button looks pressed, then
         currButtonState = buttonRead; // then we'd like to update our button state again
 
  
-            if (currButtonState == HIGH) {
+            if (currButtonState == LOW) {
                 mode++; // if the button is PRESSED NOW, then we would like to CHANGE MODES
                 if (mode == 5) {
                   mode = 0; // reset the mode to zero if we go past our 5th mode
@@ -63,114 +69,163 @@ if (buttonRead != preButtonState) { // if the button looks pressed, then
         }
      }
 preButtonState = buttonRead; // so our loops behaves itself
+//previousMillis = millis();
         
         // in the ifs update motor1behave and motor2behave
         
   if (mode == 0) {  // Lifting up the right half and return to original position
-      currentMillis = millis();
-      if (currentMillis - previousMillis >= 500) {            // wait for half a second
+ 
+      if (mode0counter == 0) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 1000) {            // wait for two second
       previousMillis = currentMillis;
-      rightMotor->run(RELEASE);
-      leftMotor->run(RELEASE);
-      }
-      currentMillis = millis();
-      if (currentMillis - previousMillis >= 2000) {            // wait for two second
-      previousMillis = currentMillis;
+      mode0counter++;
       rightMotor->run(FORWARD);
       leftMotor->run(RELEASE);
       }
+      }
+      
+      if (mode0counter == 1) {
       currentMillis = millis();
-      if (currentMillis - previousMillis >= 500) {            // wait for half a second
+      if (currentMillis - previousMillis > 3000) {            // wait for half a second
       previousMillis = currentMillis;
+      mode0counter++;
       rightMotor->run(RELEASE);
       leftMotor->run(RELEASE);
       }
-      currentMillis = millis();
-      if (currentMillis - previousMillis >= 2000) {            // wait for two second
+      }
+      
+      if (mode0counter == 2) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 1000) {            // wait for two second
       previousMillis = currentMillis;
       rightMotor->run(BACKWARD);
       leftMotor->run(RELEASE);
-    }
-  }
-        
- else if (mode == 1) { // Lifting up the left half and return to original position
-      currentMillis = millis();
-      if (currentMillis - previousMillis >= 500) {            // wait for half a second
+      mode0counter++;
+      }
+      }
+      
+      if (mode0counter == 3) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for half a second
       previousMillis = currentMillis;
       rightMotor->run(RELEASE);
       leftMotor->run(RELEASE);
+      mode0counter = 0;
       }
-      currentMillis = millis();
-      if (currentMillis - previousMillis >= 2000) {            // wait for two second
+      }
+    }
+        
+ else if (mode == 1) { // Lifting up the left half and return to original position
+      if (mode1counter == 0) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 1000) {            // wait for two second
       previousMillis = currentMillis;
+      mode0counter++;
       rightMotor->run(RELEASE);
       leftMotor->run(FORWARD);
       }
-      currentMillis = millis();
-      if (currentMillis - previousMillis >= 500) {            // wait for half a second
+      }
+      if (mode1counter == 1) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
       previousMillis = currentMillis;
+      mode0counter++;
       rightMotor->run(RELEASE);
       leftMotor->run(RELEASE);
       }
-      currentMillis = millis();
-      if (currentMillis - previousMillis >= 2000) {            // wait for two second
+      }
+      if (mode1counter == 2) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 1000) {            // wait for two second
       previousMillis = currentMillis;
+      mode0counter++;
       rightMotor->run(RELEASE);
       leftMotor->run(BACKWARD);
       }
+      }
+      if (mode1counter == 3) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
+      mode0counter++;
+      rightMotor->run(RELEASE);
+      leftMotor->run(RELEASE);
+      mode1counter = 0;
+      }
+      }
   }
   else if (mode ==2) { // JUMP
-    currentMillis = millis();
-    if (currentMillis - previousMillis >= 2000) {            // wait for half a second
-    previousMillis = currentMillis;
+    if (mode2counter == 0) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
     leftMotor->run(FORWARD);
     rightMotor->run(FORWARD);
     }
-    currentMillis = millis();
-    if (currentMillis - previousMillis >= 2000) {            // wait for two second
-    previousMillis = currentMillis;
+    }
+    if (mode2counter == 1) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
     leftMotor->run(BACKWARD);
     rightMotor->run(BACKWARD);
+    mode2counter = 0;
+    }
     }
   }
   else if (mode==3) { // DANCE
-    currentMillis = millis();
-    if (currentMillis - previousMillis >= 2000) {            // wait for half a second
-    previousMillis = currentMillis;
+    if (mode3counter == 0) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
     leftMotor->run(FORWARD);
     rightMotor->run(BACKWARD);
     }
-    currentMillis = millis();
-    if (currentMillis - previousMillis >= 2000) {            // wait for half a second
-    previousMillis = currentMillis;
+    }
+    if (mode3counter == 1) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
     leftMotor->run(BACKWARD);
     rightMotor->run(FORWARD);
+    mode3counter = 0;
+    }
     }
   }
   else if (mode ==4) { // CLIMB
-    currentMillis = millis();
-    if (currentMillis - previousMillis >= 2000) {            // wait for half a second
-    previousMillis = currentMillis;
+    if (mode4counter == 0) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
     leftMotor->run(FORWARD);
     rightMotor->run(RELEASE);
     }
-    currentMillis = millis();
-    if (currentMillis - previousMillis >= 2000) {            // wait for half a second
-    previousMillis = currentMillis;
+    }
+    if (mode4counter == 1) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
     rightMotor->run(FORWARD);
     leftMotor->run(RELEASE);
     }
-    currentMillis = millis();
-    if (currentMillis - previousMillis >= 2000) {            // wait for half a second
-    previousMillis = currentMillis;     
+    }
+    if (mode4counter == 2) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;   
     leftMotor->run(BACKWARD);
     rightMotor->run(RELEASE);
     }
-    currentMillis = millis();
-    if (currentMillis - previousMillis >= 2000) {            // wait for half a second
-    previousMillis = currentMillis;
+    }
+    if (mode4counter == 3) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
     rightMotor->run(BACKWARD);
     leftMotor->run(RELEASE);
+    mode4counter = 0;
+    }
     }
   }
 }
