@@ -16,27 +16,18 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 Adafruit_DCMotor *leftMotor = AFMS.getMotor(1);
 Adafruit_DCMotor *rightMotor = AFMS.getMotor(2);
 
-const int buttonPin = 8;    // we're starting out with pin 8 being for the button
-// const int motorPin1 = 13;
-// const int motorPin2 = 12; // let's start with pins 11/12 being for the motor - NOTE - we could end up needing to change this later but it's easy to do
-
-int mode = 4; // SELINA - I've left you 5 modes (0, 1, 2, 3, 4) - setting the mode happens by a button press and should cause a movement
-int currButtonState; // start off our variables - this is saying WHAT IS HAPPENING WITH THE BUTTON NOW (high/low)
-int preButtonState; //
-long lastTimeDebounce = 0; // when did we last change the outputs
-long debounceDelay = 100; // let's make this a decent delay
+int mode = 0; // 
 unsigned long currentMillis = 0; // Millis used to determine how long each motion is
 unsigned long previousMillis = 0;
+int preMode = 0;
 int mode0counter = 0;
 int mode1counter = 0;
 int mode2counter = 0;
 int mode3counter = 0;
 int mode4counter = 0;
+int keyboardInput;
 
 void setup() {
-     pinMode(buttonPin, INPUT); // let's define inputs and outputs here
-    // pinMode(motorPin1, OUTPUT); 
-    // pinMode(motorPin2, OUTPUT);
     AFMS.begin();  // create with the default frequency 1.6KHz
     // Set the speed to start, from 0 (off) to 255 (max speed)
     leftMotor->setSpeed(150);
@@ -45,39 +36,28 @@ void setup() {
 }
 
 void loop() {
-  int buttonRead = digitalRead(buttonPin); // what is the button doing RIGHT NOW
 
-if (buttonRead != preButtonState) { // if the button looks pressed, then
-     // reset the debouncing timer
-     lastTimeDebounce = millis();
+    // read input from keyboard
+  if (Serial.available() > 0)
+  {
+    keyboardInput = Serial.read();
+    Serial.println(keyboardInput);
+    if (keyboardInput >=48 && keyboardInput <=52) {
+      mode = (keyboardInput - 48);
+    }
+  }
+   
+      if (mode != preMode) { // if the mode has changed
+        preMode = mode; // then we'd like to update our mode
+        mode0counter = 0;
+        mode1counter = 0;
+        mode2counter = 0;
+        mode3counter = 0;
+        mode4counter = 0;
       }
   
-     if ((millis() - lastTimeDebounce) > debounceDelay) { // if the time from last press has been enough
-   
-        if (buttonRead != currButtonState) { // and if what the button is saying now is not equal to the current reading
-        currButtonState = buttonRead; // then we'd like to update our button state again
-
- 
-            if (currButtonState == LOW) {
-                mode++; // if the button is PRESSED NOW, then we would like to CHANGE MODES
-                mode0counter = 0;
-                mode1counter = 0;
-                mode2counter = 0;
-                mode3counter = 0;
-                mode4counter = 0;
-                if (mode == 5) {
-                  mode = 0; // reset the mode to zero if we go past our 5th mode
-                }
-            }
-        }
-     }
-preButtonState = buttonRead; // so our loops behaves itself
-//previousMillis = millis();
-        
-        // in the ifs update motor1behave and motor2behave
-        
   if (mode == 0) {  // Lifting up the right half and return to original position
-      Serial.println("In Mode 0");
+      //Serial.println("In Mode 0");
       if (mode0counter == 0) {
         currentMillis = millis();
       if (currentMillis - previousMillis > 1000) {            // wait for two second
