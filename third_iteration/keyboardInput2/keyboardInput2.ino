@@ -20,6 +20,10 @@ Adafruit_DCMotor *leftfootMotor = AFMS.getMotor(0x62);
 Adafruit_DCMotor *rightfootMotor = AFMS.getMotor(0x63);
 Adafruit_DCMotor *laterallefthandMotor = AFMS.getMotor(0x64);
 Adafruit_DCMotor *lateralrighthandMotor = AFMS.getMotor(0x65);
+Adafruit_DCMotor *leftheadMotor = AFMS.getMotor(0x66);
+Adafruit_DCMotor *rightheadMotor = AFMS.getMotor(0x67);
+Adafruit_DCMotor *shoulderMotor = AFMS.getMotor(0x68);
+Adafruit_DCMotor *bottomMotor = AFMS.getMotor(0x70);
 
 int mode = 0; // 
 unsigned long currentMillis = 0; // Millis used to determine how long each motion is
@@ -41,6 +45,10 @@ void setup() {
     rightfootMotor->setSpeed(150);
     laterallefthandMotor->setSpeed(150);
     lateralrighthandMotor->setSpeed(150);
+    leftheadMotor->setSpeed(150);
+    rightheadMotor->setSpeed(150);
+    shoulderMotor->setSpeed(150);
+    bottomMotor->setSpeed(150);
     Serial.begin(9600);
 }
 
@@ -78,6 +86,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       
@@ -93,6 +105,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(FORWARD);
       laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       
@@ -122,6 +138,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(FORWARD);
       laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       
@@ -137,6 +157,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(BACKWARD);
       laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       if (mode0counter == 5) {
@@ -151,6 +175,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(FORWARD);
       laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       
@@ -166,6 +194,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(BACKWARD);
       laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       if (mode0counter == 7) {
@@ -180,6 +212,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       
@@ -195,6 +231,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
     }
@@ -212,6 +252,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       
@@ -227,6 +271,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(FORWARD);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       
@@ -242,6 +290,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(BACKWARD);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       if (mode1counter == 3) {
@@ -256,6 +308,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(FORWARD);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       
@@ -271,6 +327,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(BACKWARD);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       if (mode1counter == 5) {
@@ -285,6 +345,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(FORWARD);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       
@@ -300,6 +364,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       if (mode1counter == 7) {
@@ -314,6 +382,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
       
@@ -329,6 +401,10 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
       }
       }
     }
@@ -342,10 +418,31 @@ void loop() {
       mode2counter++;
     righthandMotor->run(RELEASE);
     lefthandMotor->run(RELEASE);
+    leftfootMotor->run(RELEASE);
+    rightfootMotor->run(RELEASE);
+    lateralrighthandMotor->run(RELEASE);
+    laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
+    }
+    }
+    if (mode2counter == 0) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
+      mode2counter++;
+    righthandMotor->run(RELEASE);
+    lefthandMotor->run(RELEASE);
     leftfootMotor->run(FORWARD);
     rightfootMotor->run(FORWARD);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
     }
     }
     if (mode2counter == 1) {
@@ -359,6 +456,10 @@ void loop() {
     rightfootMotor->run(BACKWARD);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
     }
     }
   }
@@ -375,6 +476,10 @@ void loop() {
     rightfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
     }
     }
     if (mode3counter == 1) {
@@ -388,6 +493,10 @@ void loop() {
     rightfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
     }
     }
     if (mode3counter == 2) {
@@ -401,6 +510,10 @@ void loop() {
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
     }
     }
     if (mode3counter == 3) {
@@ -414,6 +527,10 @@ void loop() {
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
     }
     }
   }
@@ -431,6 +548,10 @@ void loop() {
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
     }
     }
     if (mode4counter == 1) {
@@ -444,6 +565,10 @@ void loop() {
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
     }
     }
     if (mode4counter == 2) {
@@ -457,6 +582,10 @@ void loop() {
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
     }
     }
     if (mode4counter == 3) {
@@ -470,6 +599,10 @@ void loop() {
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
     }
     }
   }
