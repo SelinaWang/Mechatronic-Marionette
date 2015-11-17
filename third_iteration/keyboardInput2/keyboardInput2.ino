@@ -29,16 +29,18 @@ int mode = 0; //
 unsigned long currentMillis = 0; // Millis used to determine how long each motion is
 unsigned long previousMillis = 0;
 int preMode = 0;
-int mode0counter = 0;
 int mode1counter = 0;
 int mode2counter = 0;
 int mode3counter = 0;
 int mode4counter = 0;
+int mode5counter = 0;
+int mode6counter = 0;
 const int buttonPin1 = 8;    
 const int buttonPin2 = 9;
 const int buttonPin3 = 10;
 const int buttonPin4 = 11;
 const int buttonPin5 = 12;
+const int buttonPin6 = 13;
 int currButtonState; // start off our variables - this is saying WHAT IS HAPPENING WITH THE BUTTON NOW (high/low)
 int preButtonState; //
 long lastTimeDebounce = 0; // when did we last change the outputs
@@ -51,6 +53,7 @@ void setup() {
     pinMode(buttonPin3, INPUT);
     pinMode(buttonPin4, INPUT);
     pinMode(buttonPin5, INPUT);
+    pinMode(buttonPin6, INPUT);
     AFMS.begin();  // create with the default frequency 1.6KHz
     // Set the speed to start, from 0 (off) to 255 (max speed)
     lefthandMotor->setSpeed(150);
@@ -73,18 +76,19 @@ void loop() {
   {
     keyboardInput = Serial.read();
     Serial.println(keyboardInput);
-    if (keyboardInput >=48 && keyboardInput <=52) {
+    if (keyboardInput >=49 && keyboardInput <=53) {
       mode = (keyboardInput - 48);
     }
   }
    
   if (mode != preMode) { // if the mode has changed
     preMode = mode; // then we'd like to update our mode
-    mode0counter = 0;
     mode1counter = 0;
     mode2counter = 0;
     mode3counter = 0;
     mode4counter = 0;
+    mode5counter = 0;
+    mode6counter = 0;
   }
 
   int buttonRead1 = digitalRead(buttonPin1); // what are the buttons doing RIGHT NOW
@@ -92,209 +96,101 @@ void loop() {
   int buttonRead3 = digitalRead(buttonPin3);
   int buttonRead4 = digitalRead(buttonPin4);
   int buttonRead5 = digitalRead(buttonPin5);
+  int buttonRead6 = digitalRead(buttonPin6);
 
 
-  if (buttonRead1 != preButtonState || buttonRead2 != preButtonState|| buttonRead3 != preButtonState|| buttonRead4 != preButtonState || buttonRead5 != preButtonState) { // if the button looks pressed, then
+  if (buttonRead1 != preButtonState || buttonRead2 != preButtonState|| buttonRead3 != preButtonState|| buttonRead4 != preButtonState || buttonRead5 != preButtonState || buttonRead6 != preButtonState) { // if the button looks pressed, then
      // reset the debouncing timer
      lastTimeDebounce = millis();
       }
   if ((millis() - lastTimeDebounce) > debounceDelay) { // if the time from last press has been enough
-   
-        if (buttonRead1 != currButtonState || buttonRead2 != currButtonState || buttonRead3 != currButtonState|| buttonRead4 != currButtonState|| buttonRead5 != currButtonState) { // and if what the button is saying now is not equal to the current reading
+        // Check to see which button is pressed and change the mode accordingly
+        if (buttonRead1 != currButtonState) { // and if what the button is saying now is not equal to the current reading
         currButtonState = buttonRead; // then we'd like to update our button state again
-
- 
             if (currButtonState == HIGH) {
-                mode++; // if the button is PRESSED NOW, then we would like to CHANGE MODES
-                mode0counter = 0;
+                mode = 1; // if the button is PRESSED NOW, then we would like to CHANGE MODES
                 mode1counter = 0;
                 mode2counter = 0;
                 mode3counter = 0;
                 mode4counter = 0;
-                if (mode == 5) {
-                  mode = 0; // reset the mode to zero if we go past our 5th mode
-                }
+                mode5counter = 0;
+                mode6counter = 0;
+            }
+        }
+        if (buttonRead2 != currButtonState) { // and if what the button is saying now is not equal to the current reading
+        currButtonState = buttonRead; // then we'd like to update our button state again
+            if (currButtonState == HIGH) {
+                mode = 2; // if the button is PRESSED NOW, then we would like to CHANGE MODES
+                mode1counter = 0;
+                mode2counter = 0;
+                mode3counter = 0;
+                mode4counter = 0;
+                mode5counter = 0;
+                mode6counter = 0;
+            }
+        }
+        if (buttonRead3 != currButtonState) { // and if what the button is saying now is not equal to the current reading
+        currButtonState = buttonRead; // then we'd like to update our button state again
+            if (currButtonState == HIGH) {
+                mode = 3; // if the button is PRESSED NOW, then we would like to CHANGE MODES
+                mode1counter = 0;
+                mode2counter = 0;
+                mode3counter = 0;
+                mode4counter = 0;
+                mode5counter = 0;
+                mode6counter = 0;
+            }
+        }
+        if (buttonRead4 != currButtonState) { // and if what the button is saying now is not equal to the current reading
+        currButtonState = buttonRead; // then we'd like to update our button state again
+            if (currButtonState == HIGH) {
+                mode = 4; // if the button is PRESSED NOW, then we would like to CHANGE MODES
+                mode1counter = 0;
+                mode2counter = 0;
+                mode3counter = 0;
+                mode4counter = 0;
+                mode5counter = 0;
+                mode6counter = 0;
+            }
+        }
+        if (buttonRead5 != currButtonState) { // and if what the button is saying now is not equal to the current reading
+        currButtonState = buttonRead; // then we'd like to update our button state again 
+            if (currButtonState == HIGH) {
+                mode = 5; // if the button is PRESSED NOW, then we would like to CHANGE MODES
+                mode1counter = 0;
+                mode2counter = 0;
+                mode3counter = 0;
+                mode4counter = 0;
+                mode5counter = 0;
+                mode6counter = 0;
+            }
+        }
+        if (buttonRead6 != currButtonState) { // and if what the button is saying now is not equal to the current reading
+        currButtonState = buttonRead; // then we'd like to update our button state again 
+            if (currButtonState == HIGH) {
+                mode = 6; // if the button is PRESSED NOW, then we would like to CHANGE MODES
+                mode1counter = 0;
+                mode2counter = 0;
+                mode3counter = 0;
+                mode4counter = 0;
+                mode5counter = 0;
+                mode6counter = 0;
             }
         }
      }
   preButtonState = buttonRead; // so our loops behaves itself
 
       
-  if (mode == 0) {  // Right hand wave
-      if (mode0counter == 0) {
-        currentMillis = millis();
-      if (currentMillis - previousMillis > 1000) {            // wait for two second
-      previousMillis = currentMillis;
-      mode0counter++;
-      Serial.println(mode0counter);
-      righthandMotor->run(FORWARD);
-      lefthandMotor->run(RELEASE);
-      rightfootMotor->run(RELEASE);
-      leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(RELEASE);
-      laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
-      bottomMotor->run(RELEASE);
-      }
-      }
-      
-      if (mode0counter == 1) {
-        currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
-      previousMillis = currentMillis;
-      mode0counter++;
-      Serial.println(mode0counter);
-      righthandMotor->run(RELEASE);
-      lefthandMotor->run(RELEASE);
-      rightfootMotor->run(RELEASE);
-      leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(FORWARD);
-      laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
-      bottomMotor->run(RELEASE);
-      }
-      }
-      
-      if (mode0counter == 2) {
-      currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
-      previousMillis = currentMillis;
-      mode0counter++;
-      Serial.println(mode0counter);
-      righthandMotor->run(RELEASE);
-      lefthandMotor->run(RELEASE);
-      rightfootMotor->run(RELEASE);
-      leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(BACKWARD);
-      laterallefthandMotor->run(RELEASE);
-      }
-      }
-      if (mode0counter == 3) {
-        currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
-      previousMillis = currentMillis;
-      mode0counter++;
-      Serial.println(mode0counter);
-      righthandMotor->run(RELEASE);
-      lefthandMotor->run(RELEASE);
-      rightfootMotor->run(RELEASE);
-      leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(FORWARD);
-      laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
-      bottomMotor->run(RELEASE);
-      }
-      }
-      
-      if (mode0counter == 4) {
-      currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
-      previousMillis = currentMillis;
-      mode0counter++;
-      Serial.println(mode0counter);
-      righthandMotor->run(RELEASE);
-      lefthandMotor->run(RELEASE);
-      rightfootMotor->run(RELEASE);
-      leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(BACKWARD);
-      laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
-      bottomMotor->run(RELEASE);
-      }
-      }
-      if (mode0counter == 5) {
-        currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
-      previousMillis = currentMillis;
-      mode0counter++;
-      Serial.println(mode0counter);
-      righthandMotor->run(RELEASE);
-      lefthandMotor->run(RELEASE);
-      rightfootMotor->run(RELEASE);
-      leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(FORWARD);
-      laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
-      bottomMotor->run(RELEASE);
-      }
-      }
-      
-      if (mode0counter == 6) {
-      currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
-      previousMillis = currentMillis;
-      mode0counter++;
-      Serial.println(mode0counter);
-      righthandMotor->run(RELEASE);
-      lefthandMotor->run(RELEASE);
-      rightfootMotor->run(RELEASE);
-      leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(BACKWARD);
-      laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
-      bottomMotor->run(RELEASE);
-      }
-      }
-      if (mode0counter == 7) {
-        currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
-      previousMillis = currentMillis;
-      mode0counter++;
-      Serial.println(mode0counter);
-      righthandMotor->run(BACKWARD);
-      lefthandMotor->run(RELEASE);
-      rightfootMotor->run(RELEASE);
-      leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(RELEASE);
-      laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
-      bottomMotor->run(RELEASE);
-      }
-      }
-      
-      if (mode0counter == 8) {
-        currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
-      previousMillis = currentMillis;
-      mode0counter = 0;
-      Serial.println(mode0counter);
-      righthandMotor->run(RELEASE);
-      lefthandMotor->run(RELEASE);
-      rightfootMotor->run(RELEASE);
-      leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(RELEASE);
-      laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
-      bottomMotor->run(RELEASE);
-      }
-      }
-    }
-
-  else if (mode == 1) {  // Left hand wave
+  if (mode == 1) {  // Right hand wave
+    Serial.println("RIGHT HAND WAVE");
       if (mode1counter == 0) {
         currentMillis = millis();
       if (currentMillis - previousMillis > 1000) {            // wait for two second
       previousMillis = currentMillis;
       mode1counter++;
       Serial.println(mode1counter);
-      lefthandMotor->run(FORWARD);
-      righthandMotor->run(RELEASE);
+      righthandMotor->run(FORWARD);
+      lefthandMotor->run(RELEASE);
       rightfootMotor->run(RELEASE);
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
@@ -316,8 +212,8 @@ void loop() {
       lefthandMotor->run(RELEASE);
       rightfootMotor->run(RELEASE);
       leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(RELEASE);
-      laterallefthandMotor->run(FORWARD);
+      lateralrighthandMotor->run(FORWARD);
+      laterallefthandMotor->run(RELEASE);
       leftheadMotor->run(RELEASE);
       rightheadMotor->run(RELEASE);
       shoulderMotor->run(RELEASE);
@@ -335,8 +231,8 @@ void loop() {
       lefthandMotor->run(RELEASE);
       rightfootMotor->run(RELEASE);
       leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(RELEASE);
-      laterallefthandMotor->run(BACKWARD);
+      lateralrighthandMotor->run(BACKWARD);
+      laterallefthandMotor->run(RELEASE);
       leftheadMotor->run(RELEASE);
       rightheadMotor->run(RELEASE);
       shoulderMotor->run(RELEASE);
@@ -353,8 +249,8 @@ void loop() {
       lefthandMotor->run(RELEASE);
       rightfootMotor->run(RELEASE);
       leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(RELEASE);
-      laterallefthandMotor->run(FORWARD);
+      lateralrighthandMotor->run(FORWARD);
+      laterallefthandMotor->run(RELEASE);
       leftheadMotor->run(RELEASE);
       rightheadMotor->run(RELEASE);
       shoulderMotor->run(RELEASE);
@@ -372,8 +268,8 @@ void loop() {
       lefthandMotor->run(RELEASE);
       rightfootMotor->run(RELEASE);
       leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(RELEASE);
-      laterallefthandMotor->run(BACKWARD);
+      lateralrighthandMotor->run(BACKWARD);
+      laterallefthandMotor->run(RELEASE);
       leftheadMotor->run(RELEASE);
       rightheadMotor->run(RELEASE);
       shoulderMotor->run(RELEASE);
@@ -390,8 +286,8 @@ void loop() {
       lefthandMotor->run(RELEASE);
       rightfootMotor->run(RELEASE);
       leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(RELEASE);
-      laterallefthandMotor->run(FORWARD);
+      lateralrighthandMotor->run(FORWARD);
+      laterallefthandMotor->run(RELEASE);
       leftheadMotor->run(RELEASE);
       rightheadMotor->run(RELEASE);
       shoulderMotor->run(RELEASE);
@@ -409,7 +305,7 @@ void loop() {
       lefthandMotor->run(RELEASE);
       rightfootMotor->run(RELEASE);
       leftfootMotor->run(RELEASE);
-      lateralrighthandMotor->run(RELEASE);
+      lateralrighthandMotor->run(BACKWARD);
       laterallefthandMotor->run(RELEASE);
       leftheadMotor->run(RELEASE);
       rightheadMotor->run(RELEASE);
@@ -455,78 +351,195 @@ void loop() {
       }
       }
     }
-        
-  else if (mode ==2) { // JUMP
-    Serial.println("In Mode 2");
-    if (mode2counter == 0) {
+
+  else if (mode == 2) {  // Left hand wave
+    Serial.println("LEFT HAND WAVE");
+      if (mode2counter == 0) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 1000) {            // wait for two second
+      previousMillis = currentMillis;
+      mode2counter++;
+      Serial.println(mode2counter);
+      lefthandMotor->run(FORWARD);
+      righthandMotor->run(RELEASE);
+      rightfootMotor->run(RELEASE);
+      leftfootMotor->run(RELEASE);
+      lateralrighthandMotor->run(RELEASE);
+      laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
+      }
+      }
+      
+      if (mode2counter == 1) {
         currentMillis = millis();
       if (currentMillis - previousMillis > 3000) {            // wait for two second
       previousMillis = currentMillis;
       mode2counter++;
-    righthandMotor->run(RELEASE);
-    lefthandMotor->run(RELEASE);
-    leftfootMotor->run(RELEASE);
-    rightfootMotor->run(RELEASE);
-    lateralrighthandMotor->run(RELEASE);
-    laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
-    bottomMotor->run(RELEASE);
-    }
-    }
-    if (mode2counter == 0) {
+      Serial.println(mode2counter);
+      righthandMotor->run(RELEASE);
+      lefthandMotor->run(RELEASE);
+      rightfootMotor->run(RELEASE);
+      leftfootMotor->run(RELEASE);
+      lateralrighthandMotor->run(RELEASE);
+      laterallefthandMotor->run(FORWARD);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
+      }
+      }
+      
+      if (mode2counter == 2) {
+      currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      previousMillis = currentMillis;
+      mode2counter++;
+      Serial.println(mode2counter);
+      righthandMotor->run(RELEASE);
+      lefthandMotor->run(RELEASE);
+      rightfootMotor->run(RELEASE);
+      leftfootMotor->run(RELEASE);
+      lateralrighthandMotor->run(RELEASE);
+      laterallefthandMotor->run(BACKWARD);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
+      }
+      }
+      if (mode2counter == 3) {
         currentMillis = millis();
       if (currentMillis - previousMillis > 3000) {            // wait for two second
       previousMillis = currentMillis;
       mode2counter++;
-    righthandMotor->run(RELEASE);
-    lefthandMotor->run(RELEASE);
-    leftfootMotor->run(FORWARD);
-    rightfootMotor->run(FORWARD);
-    lateralrighthandMotor->run(RELEASE);
-    laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
-    bottomMotor->run(RELEASE);
-    }
-    }
-    if (mode2counter == 1) {
+      Serial.println(mode2counter);
+      righthandMotor->run(RELEASE);
+      lefthandMotor->run(RELEASE);
+      rightfootMotor->run(RELEASE);
+      leftfootMotor->run(RELEASE);
+      lateralrighthandMotor->run(RELEASE);
+      laterallefthandMotor->run(FORWARD);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
+      }
+      }
+      
+      if (mode2counter == 4) {
+      currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      previousMillis = currentMillis;
+      mode2counter++;
+      Serial.println(mode2counter);
+      righthandMotor->run(RELEASE);
+      lefthandMotor->run(RELEASE);
+      rightfootMotor->run(RELEASE);
+      leftfootMotor->run(RELEASE);
+      lateralrighthandMotor->run(RELEASE);
+      laterallefthandMotor->run(BACKWARD);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
+      }
+      }
+      if (mode2counter == 5) {
         currentMillis = millis();
       if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
+      mode2counter++;
+      Serial.println(mode2counter);
+      righthandMotor->run(RELEASE);
+      lefthandMotor->run(RELEASE);
+      rightfootMotor->run(RELEASE);
+      leftfootMotor->run(RELEASE);
+      lateralrighthandMotor->run(RELEASE);
+      laterallefthandMotor->run(FORWARD);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
+      }
+      }
+      
+      if (mode2counter == 6) {
+      currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      previousMillis = currentMillis;
+      mode2counter++;
+      Serial.println(mode2counter);
+      righthandMotor->run(RELEASE);
+      lefthandMotor->run(RELEASE);
+      rightfootMotor->run(RELEASE);
+      leftfootMotor->run(RELEASE);
+      lateralrighthandMotor->run(RELEASE);
+      laterallefthandMotor->run(BACKWARD);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
+      }
+      }
+      if (mode2counter == 7) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
+      mode2counter++;
+      Serial.println(mode2counter);
+      righthandMotor->run(BACKWARD);
+      lefthandMotor->run(RELEASE);
+      rightfootMotor->run(RELEASE);
+      leftfootMotor->run(RELEASE);
+      lateralrighthandMotor->run(RELEASE);
+      laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
+      }
+      }
+      
+      if (mode2counter == 8) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for half a second
       previousMillis = currentMillis;
       mode2counter = 0;
-    righthandMotor->run(RELEASE);
-    lefthandMotor->run(RELEASE);
-    leftfootMotor->run(BACKWARD);
-    rightfootMotor->run(BACKWARD);
-    lateralrighthandMotor->run(RELEASE);
-    laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
-    bottomMotor->run(RELEASE);
+      Serial.println(mode2counter);
+      righthandMotor->run(RELEASE);
+      lefthandMotor->run(RELEASE);
+      rightfootMotor->run(RELEASE);
+      leftfootMotor->run(RELEASE);
+      lateralrighthandMotor->run(RELEASE);
+      laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
+      }
+      }
     }
-    }
-  }
-  else if (mode==3) { // MARCH
-    Serial.println("In Mode 3");
+        
+  else if (mode ==3) { // JUMP
+    Serial.println("JUMP");
     if (mode3counter == 0) {
         currentMillis = millis();
       if (currentMillis - previousMillis > 3000) {            // wait for two second
       previousMillis = currentMillis;
       mode3counter++;
     righthandMotor->run(FORWARD);
-    lefthandMotor->run(RELEASE);
-    leftfootMotor->run(FORWARD);
+    lefthandMotor->run(FORWARD);
+    leftfootMotor->run(RELEASE);
     rightfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
     leftheadMotor->run(RELEASE);
     rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
-    bottomMotor->run(RELEASE);
+    shoulderMotor->run(BACKWARD);
+    bottomMotor->run(BACKWARD);
     }
     }
     if (mode3counter == 1) {
@@ -534,16 +547,16 @@ void loop() {
       if (currentMillis - previousMillis > 3000) {            // wait for two second
       previousMillis = currentMillis;
       mode3counter++;
-    lefthandMotor->run(RELEASE);
     righthandMotor->run(BACKWARD);
-    leftfootMotor->run(BACKWARD);
+    lefthandMotor->run(BACKWARD);
+    leftfootMotor->run(RELEASE);
     rightfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
     leftheadMotor->run(RELEASE);
     rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
-    bottomMotor->run(RELEASE);
+    shoulderMotor->run(FORWARD);
+    bottomMotor->run(FORWARD);
     }
     }
     if (mode3counter == 2) {
@@ -551,16 +564,16 @@ void loop() {
       if (currentMillis - previousMillis > 3000) {            // wait for two second
       previousMillis = currentMillis;
       mode3counter++;
-    lefthandMotor->run(FORWARD);
     righthandMotor->run(RELEASE);
-    rightfootMotor->run(FORWARD);
+    lefthandMotor->run(RELEASE);
     leftfootMotor->run(RELEASE);
+    rightfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
     leftheadMotor->run(RELEASE);
     rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
-    bottomMotor->run(RELEASE);
+    shoulderMotor->run(FORWARD);
+    bottomMotor->run(FORWARD);
     }
     }
     if (mode3counter == 3) {
@@ -569,30 +582,29 @@ void loop() {
       previousMillis = currentMillis;
       mode3counter = 0;
     righthandMotor->run(RELEASE);
-    lefthandMotor->run(BACKWARD);
-    rightfootMotor->run(BACKWARD);
+    lefthandMotor->run(RELEASE);
     leftfootMotor->run(RELEASE);
+    rightfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
     leftheadMotor->run(RELEASE);
     rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
-    bottomMotor->run(RELEASE);
+    shoulderMotor->run(BACKWARD);
+    bottomMotor->run(BACKWARD);
     }
     }
   }
-
-  else if (mode ==4) { // CLIMB
-    Serial.println("In Mode 4");
+  else if (mode==4) { // MARCH
+    Serial.println("MARCH");
     if (mode4counter == 0) {
         currentMillis = millis();
       if (currentMillis - previousMillis > 3000) {            // wait for two second
       previousMillis = currentMillis;
       mode4counter++;
-    lefthandMotor->run(FORWARD);
-    righthandMotor->run(RELEASE);
+    righthandMotor->run(FORWARD);
+    lefthandMotor->run(RELEASE);
+    leftfootMotor->run(FORWARD);
     rightfootMotor->run(RELEASE);
-    leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
     leftheadMotor->run(RELEASE);
@@ -606,10 +618,10 @@ void loop() {
       if (currentMillis - previousMillis > 3000) {            // wait for two second
       previousMillis = currentMillis;
       mode4counter++;
-    righthandMotor->run(FORWARD);
     lefthandMotor->run(RELEASE);
+    righthandMotor->run(BACKWARD);
+    leftfootMotor->run(BACKWARD);
     rightfootMotor->run(RELEASE);
-    leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
     leftheadMotor->run(RELEASE);
@@ -621,11 +633,11 @@ void loop() {
     if (mode4counter == 2) {
         currentMillis = millis();
       if (currentMillis - previousMillis > 3000) {            // wait for two second
-      previousMillis = currentMillis;   
+      previousMillis = currentMillis;
       mode4counter++;
-    lefthandMotor->run(BACKWARD);
+    lefthandMotor->run(FORWARD);
     righthandMotor->run(RELEASE);
-    rightfootMotor->run(RELEASE);
+    rightfootMotor->run(FORWARD);
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
@@ -640,9 +652,9 @@ void loop() {
       if (currentMillis - previousMillis > 3000) {            // wait for two second
       previousMillis = currentMillis;
       mode4counter = 0;
-    righthandMotor->run(BACKWARD);
-    lefthandMotor->run(RELEASE);
-    rightfootMotor->run(RELEASE);
+    righthandMotor->run(RELEASE);
+    lefthandMotor->run(BACKWARD);
+    rightfootMotor->run(BACKWARD);
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
@@ -653,4 +665,126 @@ void loop() {
     }
     }
   }
+
+  else if (mode ==5) { // DANCE
+    Serial.println("DANCE");
+    if (mode5counter == 0) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
+      mode5counter++;
+    lefthandMotor->run(FORWARD);
+    righthandMotor->run(RELEASE);
+    rightfootMotor->run(FORWARD);
+    leftfootMotor->run(RELEASE);
+    lateralrighthandMotor->run(RELEASE);
+    laterallefthandMotor->run(FORWARD);
+    leftheadMotor->run(RELEASE);
+    rightheadMotor->run(RELEASE);
+    shoulderMotor->run(RELEASE);
+    bottomMotor->run(RELEASE);
+    }
+    }
+    if (mode5counter == 1) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
+      mode5counter++;
+    righthandMotor->run(RELEASE);
+    lefthandMotor->run(RELEASE);
+    rightfootMotor->run(RELEASE);
+    leftfootMotor->run(RELEASE);
+    lateralrighthandMotor->run(RELEASE);
+    laterallefthandMotor->run(BACKWARD);
+    leftheadMotor->run(BACKWARD);
+    rightheadMotor->run(FORWARD);
+    shoulderMotor->run(RELEASE);
+    bottomMotor->run(RELEASE);
+    }
+    }
+    if (mode5counter == 2) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;   
+      mode5counter++;
+    lefthandMotor->run(BACKWARD);
+    righthandMotor->run(RELEASE);
+    rightfootMotor->run(BACKWARD);
+    leftfootMotor->run(RELEASE);
+    lateralrighthandMotor->run(RELEASE);
+    laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(FORWARD);
+    rightheadMotor->run(BACKWARD);
+    shoulderMotor->run(RELEASE);
+    bottomMotor->run(RELEASE);
+    }
+    }
+    if (mode5counter == 3) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
+      mode5counter++;
+    lefthandMotor->run(RELEASE);
+    righthandMotor->run(FORWARD);
+    rightfootMotor->run(RELEASE);
+    leftfootMotor->run(FORWARD);
+    lateralrighthandMotor->run(FORWARD);
+    laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(RELEASE);
+    rightheadMotor->run(RELEASE);
+    shoulderMotor->run(RELEASE);
+    bottomMotor->run(RELEASE);
+    }
+    }
+    if (mode5counter == 4) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;
+      mode5counter++;
+    righthandMotor->run(RELEASE);
+    lefthandMotor->run(RELEASE);
+    rightfootMotor->run(RELEASE);
+    leftfootMotor->run(RELEASE);
+    lateralrighthandMotor->run(BACKWARD);
+    laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(FORWARD);
+    rightheadMotor->run(BACKWARD);
+    shoulderMotor->run(RELEASE);
+    bottomMotor->run(RELEASE);
+    }
+    }
+    if (mode5counter == 5) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      previousMillis = currentMillis;   
+      mode5counter = 0;
+    lefthandMotor->run(RELEASE);
+    righthandMotor->run(BACKWARD);
+    rightfootMotor->run(RELEASE);
+    leftfootMotor->run(BACKWARD);
+    lateralrighthandMotor->run(RELEASE);
+    laterallefthandMotor->run(RELEASE);
+    leftheadMotor->run(BACKWARD);
+    rightheadMotor->run(FORWARD);
+    shoulderMotor->run(RELEASE);
+    bottomMotor->run(RELEASE);
+    }
+    }
+  }
+
+    if (mode == 6) {  // STOP
+      if (mode6counter == 0) {
+      Serial.println(mode6counter);
+      righthandMotor->run(RELEASE);
+      lefthandMotor->run(RELEASE);
+      rightfootMotor->run(RELEASE);
+      leftfootMotor->run(RELEASE);
+      lateralrighthandMotor->run(RELEASE);
+      laterallefthandMotor->run(RELEASE);
+      leftheadMotor->run(RELEASE);
+      rightheadMotor->run(RELEASE);
+      shoulderMotor->run(RELEASE);
+      bottomMotor->run(RELEASE);
+      }
+    }
 }
