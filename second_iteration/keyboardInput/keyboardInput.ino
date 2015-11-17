@@ -21,7 +21,7 @@ Adafruit_DCMotor *rightfootMotor = AFMS.getMotor(4);
 //Adafruit_DCMotor *laterallefthandMotor = AFMS.getMotor(0x64);
 //Adafruit_DCMotor *lateralrighthandMotor = AFMS.getMotor(0x65);
 
-int mode = 3; // 
+int mode = 1; // 
 unsigned long currentMillis = 0; // Millis used to determine how long each motion is
 unsigned long previousMillis = 0;
 int preMode = 0;

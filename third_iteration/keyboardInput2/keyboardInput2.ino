@@ -25,7 +25,7 @@ Adafruit_DCMotor *rightheadMotor = AFMS.getMotor(8);
 Adafruit_DCMotor *shoulderMotor = AFMS.getMotor(9);
 Adafruit_DCMotor *bottomMotor = AFMS.getMotor(10);
 
-int mode = 0; // 
+int mode = 2; // 
 unsigned long currentMillis = 0; // Millis used to determine how long each motion is
 unsigned long previousMillis = 0;
 int preMode = 0;
@@ -35,12 +35,12 @@ int mode3counter = 0;
 int mode4counter = 0;
 int mode5counter = 0;
 int mode6counter = 0;
-const int buttonPin1 = 8;    
-const int buttonPin2 = 9;
-const int buttonPin3 = 10;
-const int buttonPin4 = 11;
-const int buttonPin5 = 12;
-const int buttonPin6 = 13;
+const int buttonPin1 = 0;    
+const int buttonPin2 = 1;
+const int buttonPin3 = 2;
+const int buttonPin4 = 3;
+const int buttonPin5 = 4;
+const int buttonPin6 = 5;
 int currButtonState; // start off our variables - this is saying WHAT IS HAPPENING WITH THE BUTTON NOW (high/low)
 int preButtonState; //
 long lastTimeDebounce = 0; // when did we last change the outputs
@@ -106,7 +106,7 @@ void loop() {
   if ((millis() - lastTimeDebounce) > debounceDelay) { // if the time from last press has been enough
         // Check to see which button is pressed and change the mode accordingly
         if (buttonRead1 != currButtonState) { // and if what the button is saying now is not equal to the current reading
-        currButtonState = buttonRead; // then we'd like to update our button state again
+        currButtonState = buttonRead1; // then we'd like to update our button state again
             if (currButtonState == HIGH) {
                 mode = 1; // if the button is PRESSED NOW, then we would like to CHANGE MODES
                 mode1counter = 0;
@@ -118,7 +118,7 @@ void loop() {
             }
         }
         if (buttonRead2 != currButtonState) { // and if what the button is saying now is not equal to the current reading
-        currButtonState = buttonRead; // then we'd like to update our button state again
+        currButtonState = buttonRead2; // then we'd like to update our button state again
             if (currButtonState == HIGH) {
                 mode = 2; // if the button is PRESSED NOW, then we would like to CHANGE MODES
                 mode1counter = 0;
@@ -130,7 +130,7 @@ void loop() {
             }
         }
         if (buttonRead3 != currButtonState) { // and if what the button is saying now is not equal to the current reading
-        currButtonState = buttonRead; // then we'd like to update our button state again
+        currButtonState = buttonRead3; // then we'd like to update our button state again
             if (currButtonState == HIGH) {
                 mode = 3; // if the button is PRESSED NOW, then we would like to CHANGE MODES
                 mode1counter = 0;
@@ -142,7 +142,7 @@ void loop() {
             }
         }
         if (buttonRead4 != currButtonState) { // and if what the button is saying now is not equal to the current reading
-        currButtonState = buttonRead; // then we'd like to update our button state again
+        currButtonState = buttonRead4; // then we'd like to update our button state again
             if (currButtonState == HIGH) {
                 mode = 4; // if the button is PRESSED NOW, then we would like to CHANGE MODES
                 mode1counter = 0;
@@ -154,7 +154,7 @@ void loop() {
             }
         }
         if (buttonRead5 != currButtonState) { // and if what the button is saying now is not equal to the current reading
-        currButtonState = buttonRead; // then we'd like to update our button state again 
+        currButtonState = buttonRead5; // then we'd like to update our button state again 
             if (currButtonState == HIGH) {
                 mode = 5; // if the button is PRESSED NOW, then we would like to CHANGE MODES
                 mode1counter = 0;
@@ -166,7 +166,7 @@ void loop() {
             }
         }
         if (buttonRead6 != currButtonState) { // and if what the button is saying now is not equal to the current reading
-        currButtonState = buttonRead; // then we'd like to update our button state again 
+        currButtonState = buttonRead6 ; // then we'd like to update our button state again 
             if (currButtonState == HIGH) {
                 mode = 6; // if the button is PRESSED NOW, then we would like to CHANGE MODES
                 mode1counter = 0;
@@ -178,7 +178,7 @@ void loop() {
             }
         }
      }
-  preButtonState = buttonRead; // so our loops behaves itself
+  preButtonState = currButtonState; // so our loops behaves itself
 
       
   if (mode == 1) {  // Right hand wave
