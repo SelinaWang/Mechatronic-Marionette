@@ -11,21 +11,25 @@ Control Modes: Type in the mode you want (0~4) in the Serial Monitor
 // Create the motor shield object with the default I2C address
 // Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 // Or, create it with a different I2C address (say for stacking)
-Adafruit_MotorShield AFMS = Adafruit_MotorShield(0x61);
+Adafruit_MotorShield AFMSMotorShield1 = Adafruit_MotorShield(0x60);
+Adafruit_MotorShield AFMSMotorShield2 = Adafruit_MotorShield(0x61);
+Adafruit_MotorShield AFMSMotorShield3 = Adafruit_MotorShield(0x62);
 
 // Initiate the motors controlling the left and right side of the body
-Adafruit_DCMotor *lefthandMotor = AFMS.getMotor(1);
-Adafruit_DCMotor *righthandMotor = AFMS.getMotor(2);
-Adafruit_DCMotor *leftfootMotor = AFMS.getMotor(3);
-Adafruit_DCMotor *rightfootMotor = AFMS.getMotor(4);
-Adafruit_DCMotor *laterallefthandMotor = AFMS.getMotor(5);
-Adafruit_DCMotor *lateralrighthandMotor = AFMS.getMotor(6);
-Adafruit_DCMotor *leftheadMotor = AFMS.getMotor(7);
-Adafruit_DCMotor *rightheadMotor = AFMS.getMotor(8);
-Adafruit_DCMotor *shoulderMotor = AFMS.getMotor(9);
-Adafruit_DCMotor *bottomMotor = AFMS.getMotor(10);
+Adafruit_DCMotor *lefthandMotor = AFMSMotorShield1.getMotor(1);
+Adafruit_DCMotor *righthandMotor = AFMSMotorShield1.getMotor(2);
+Adafruit_DCMotor *leftfootMotor = AFMSMotorShield1.getMotor(3);
+Adafruit_DCMotor *rightfootMotor = AFMSMotorShield1.getMotor(4);
+Adafruit_DCMotor *laterallefthandMotor = AFMSMotorShield2.getMotor(1);
+Adafruit_DCMotor *lateralrighthandMotor = AFMSMotorShield2.getMotor(2);
+Adafruit_DCMotor *leftheadMotor = AFMSMotorShield2.getMotor(3);
+Adafruit_DCMotor *rightheadMotor = AFMSMotorShield2.getMotor(4);
+Adafruit_DCMotor *shoulderMotor = AFMSMotorShield3.getMotor(1);
+Adafruit_DCMotor *bottomMotor = AFMSMotorShield3.getMotor(2);
+Adafruit_DCMotor *spare1Motor = AFMSMotorShield3.getMotor(3);
+Adafruit_DCMotor *spare2Motor = AFMSMotorShield3.getMotor(4);
 
-int mode = 2; // 
+int mode = 1; // 
 unsigned long currentMillis = 0; // Millis used to determine how long each motion is
 unsigned long previousMillis = 0;
 int preMode = 0;
@@ -54,14 +58,16 @@ void setup() {
     pinMode(buttonPin4, INPUT);
     pinMode(buttonPin5, INPUT);
     pinMode(buttonPin6, INPUT);
-    AFMS.begin();  // create with the default frequency 1.6KHz
+    AFMSMotorShield1.begin();
+    AFMSMotorShield2.begin();
+    AFMSMotorShield3.begin();
     // Set the speed to start, from 0 (off) to 255 (max speed)
-    lefthandMotor->setSpeed(150);
-    righthandMotor->setSpeed(150);
+    lefthandMotor->setSpeed(250);
+    righthandMotor->setSpeed(250);
     leftfootMotor->setSpeed(150);
     rightfootMotor->setSpeed(150);
-    laterallefthandMotor->setSpeed(150);
-    lateralrighthandMotor->setSpeed(150);
+    laterallefthandMotor->setSpeed(250);
+    lateralrighthandMotor->setSpeed(250);
     leftheadMotor->setSpeed(150);
     rightheadMotor->setSpeed(150);
     shoulderMotor->setSpeed(150);
