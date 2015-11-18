@@ -1,7 +1,7 @@
 /*
 Mechatronic Marionette
 Cecilia Diehl, Elizabeth Sundsmo, Rebecca Gettys, Rebecca Patterson, Ziyu (Selina) Wang
-Control Modes: Type in the mode you want (0~4) in the Serial Monitor
+Control Modes: Type in the mode you want (1~5) in the Serial Monitor
 */
 
 #include <Wire.h>
@@ -22,14 +22,14 @@ Adafruit_DCMotor *leftfootMotor = AFMSMotorShield1.getMotor(3);
 Adafruit_DCMotor *rightfootMotor = AFMSMotorShield1.getMotor(4);
 Adafruit_DCMotor *laterallefthandMotor = AFMSMotorShield2.getMotor(1);
 Adafruit_DCMotor *lateralrighthandMotor = AFMSMotorShield2.getMotor(2);
-Adafruit_DCMotor *leftheadMotor = AFMSMotorShield2.getMotor(3);
-Adafruit_DCMotor *rightheadMotor = AFMSMotorShield2.getMotor(4);
-Adafruit_DCMotor *shoulderMotor = AFMSMotorShield3.getMotor(1);
+Adafruit_DCMotor *rightshoulderMotor = AFMSMotorShield2.getMotor(3);
+Adafruit_DCMotor *headMotor = AFMSMotorShield2.getMotor(4);
+Adafruit_DCMotor *leftshoulderMotor = AFMSMotorShield3.getMotor(1);
 Adafruit_DCMotor *bottomMotor = AFMSMotorShield3.getMotor(2);
 Adafruit_DCMotor *spare1Motor = AFMSMotorShield3.getMotor(3);
 Adafruit_DCMotor *spare2Motor = AFMSMotorShield3.getMotor(4);
 
-int mode = 1; // 
+int mode = 2; // 
 unsigned long currentMillis = 0; // Millis used to determine how long each motion is
 unsigned long previousMillis = 0;
 int preMode = 0;
@@ -68,9 +68,9 @@ void setup() {
     rightfootMotor->setSpeed(150);
     laterallefthandMotor->setSpeed(250);
     lateralrighthandMotor->setSpeed(250);
-    leftheadMotor->setSpeed(150);
-    rightheadMotor->setSpeed(150);
-    shoulderMotor->setSpeed(150);
+    rightshoulderMotor->setSpeed(150);
+    headMotor->setSpeed(150);
+    leftshoulderMotor->setSpeed(150);
     bottomMotor->setSpeed(150);
     Serial.begin(9600);
 }
@@ -123,7 +123,7 @@ void loop() {
                 mode6counter = 0;
             }
         }
-        if (buttonRead2 != currButtonState) { // and if what the button is saying now is not equal to the current reading
+        else if (buttonRead2 != currButtonState) { // and if what the button is saying now is not equal to the current reading
         currButtonState = buttonRead2; // then we'd like to update our button state again
             if (currButtonState == HIGH) {
                 mode = 2; // if the button is PRESSED NOW, then we would like to CHANGE MODES
@@ -135,7 +135,7 @@ void loop() {
                 mode6counter = 0;
             }
         }
-        if (buttonRead3 != currButtonState) { // and if what the button is saying now is not equal to the current reading
+        else if (buttonRead3 != currButtonState) { // and if what the button is saying now is not equal to the current reading
         currButtonState = buttonRead3; // then we'd like to update our button state again
             if (currButtonState == HIGH) {
                 mode = 3; // if the button is PRESSED NOW, then we would like to CHANGE MODES
@@ -147,7 +147,7 @@ void loop() {
                 mode6counter = 0;
             }
         }
-        if (buttonRead4 != currButtonState) { // and if what the button is saying now is not equal to the current reading
+        else if (buttonRead4 != currButtonState) { // and if what the button is saying now is not equal to the current reading
         currButtonState = buttonRead4; // then we'd like to update our button state again
             if (currButtonState == HIGH) {
                 mode = 4; // if the button is PRESSED NOW, then we would like to CHANGE MODES
@@ -159,7 +159,7 @@ void loop() {
                 mode6counter = 0;
             }
         }
-        if (buttonRead5 != currButtonState) { // and if what the button is saying now is not equal to the current reading
+        else if (buttonRead5 != currButtonState) { // and if what the button is saying now is not equal to the current reading
         currButtonState = buttonRead5; // then we'd like to update our button state again 
             if (currButtonState == HIGH) {
                 mode = 5; // if the button is PRESSED NOW, then we would like to CHANGE MODES
@@ -171,7 +171,7 @@ void loop() {
                 mode6counter = 0;
             }
         }
-        if (buttonRead6 != currButtonState) { // and if what the button is saying now is not equal to the current reading
+        else if (buttonRead6 != currButtonState) { // and if what the button is saying now is not equal to the current reading
         currButtonState = buttonRead6 ; // then we'd like to update our button state again 
             if (currButtonState == HIGH) {
                 mode = 6; // if the button is PRESSED NOW, then we would like to CHANGE MODES
@@ -201,9 +201,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -220,9 +220,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(FORWARD);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -239,9 +239,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(BACKWARD);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -257,9 +257,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(FORWARD);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -276,9 +276,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(BACKWARD);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -294,9 +294,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(FORWARD);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -313,9 +313,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(BACKWARD);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -331,9 +331,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -350,9 +350,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -372,9 +372,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -391,9 +391,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(FORWARD);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -410,9 +410,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(BACKWARD);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -428,9 +428,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(FORWARD);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -447,9 +447,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(BACKWARD);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -465,9 +465,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(FORWARD);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -484,9 +484,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(BACKWARD);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -502,9 +502,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -521,9 +521,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
       }
@@ -542,9 +542,9 @@ void loop() {
     rightfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(BACKWARD);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(RELEASE);
+    leftshoulderMotor->run(BACKWARD);
     bottomMotor->run(BACKWARD);
     }
     }
@@ -559,9 +559,9 @@ void loop() {
     rightfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(FORWARD);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(RELEASE);
+    leftshoulderMotor->run(FORWARD);
     bottomMotor->run(FORWARD);
     }
     }
@@ -576,9 +576,9 @@ void loop() {
     rightfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(FORWARD);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(RELEASE);
+    leftshoulderMotor->run(FORWARD);
     bottomMotor->run(FORWARD);
     }
     }
@@ -593,9 +593,9 @@ void loop() {
     rightfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(BACKWARD);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(RELEASE);
+    leftshoulderMotor->run(BACKWARD);
     bottomMotor->run(BACKWARD);
     }
     }
@@ -613,9 +613,9 @@ void loop() {
     rightfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(RELEASE);
+    leftshoulderMotor->run(RELEASE);
     bottomMotor->run(RELEASE);
     }
     }
@@ -630,9 +630,9 @@ void loop() {
     rightfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(RELEASE);
+    leftshoulderMotor->run(RELEASE);
     bottomMotor->run(RELEASE);
     }
     }
@@ -647,9 +647,9 @@ void loop() {
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(RELEASE);
+    leftshoulderMotor->run(RELEASE);
     bottomMotor->run(RELEASE);
     }
     }
@@ -664,9 +664,9 @@ void loop() {
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(RELEASE);
+    leftshoulderMotor->run(RELEASE);
     bottomMotor->run(RELEASE);
     }
     }
@@ -685,9 +685,9 @@ void loop() {
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(FORWARD);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(RELEASE);
+    leftshoulderMotor->run(RELEASE);
     bottomMotor->run(RELEASE);
     }
     }
@@ -702,9 +702,9 @@ void loop() {
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(BACKWARD);
-    leftheadMotor->run(BACKWARD);
-    rightheadMotor->run(FORWARD);
-    shoulderMotor->run(RELEASE);
+    rightshoulderMotor->run(BACKWARD);
+    headMotor->run(FORWARD);
+    leftshoulderMotor->run(RELEASE);
     bottomMotor->run(RELEASE);
     }
     }
@@ -719,9 +719,9 @@ void loop() {
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(FORWARD);
-    rightheadMotor->run(BACKWARD);
-    shoulderMotor->run(RELEASE);
+    rightshoulderMotor->run(FORWARD);
+    headMotor->run(BACKWARD);
+    leftshoulderMotor->run(RELEASE);
     bottomMotor->run(RELEASE);
     }
     }
@@ -736,9 +736,9 @@ void loop() {
     leftfootMotor->run(FORWARD);
     lateralrighthandMotor->run(FORWARD);
     laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(RELEASE);
-    rightheadMotor->run(RELEASE);
-    shoulderMotor->run(RELEASE);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(RELEASE);
+    leftshoulderMotor->run(RELEASE);
     bottomMotor->run(RELEASE);
     }
     }
@@ -753,9 +753,9 @@ void loop() {
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(BACKWARD);
     laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(FORWARD);
-    rightheadMotor->run(BACKWARD);
-    shoulderMotor->run(RELEASE);
+    rightshoulderMotor->run(FORWARD);
+    headMotor->run(BACKWARD);
+    leftshoulderMotor->run(RELEASE);
     bottomMotor->run(RELEASE);
     }
     }
@@ -770,15 +770,15 @@ void loop() {
     leftfootMotor->run(BACKWARD);
     lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(RELEASE);
-    leftheadMotor->run(BACKWARD);
-    rightheadMotor->run(FORWARD);
-    shoulderMotor->run(RELEASE);
+    rightshoulderMotor->run(BACKWARD);
+    headMotor->run(FORWARD);
+    leftshoulderMotor->run(RELEASE);
     bottomMotor->run(RELEASE);
     }
     }
   }
 
-    if (mode == 6) {  // STOP
+  else if (mode == 6) {  // STOP
       if (mode6counter == 0) {
       Serial.println(mode6counter);
       righthandMotor->run(RELEASE);
@@ -787,9 +787,9 @@ void loop() {
       leftfootMotor->run(RELEASE);
       lateralrighthandMotor->run(RELEASE);
       laterallefthandMotor->run(RELEASE);
-      leftheadMotor->run(RELEASE);
-      rightheadMotor->run(RELEASE);
-      shoulderMotor->run(RELEASE);
+      rightshoulderMotor->run(RELEASE);
+      headMotor->run(RELEASE);
+      leftshoulderMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
       }
     }
