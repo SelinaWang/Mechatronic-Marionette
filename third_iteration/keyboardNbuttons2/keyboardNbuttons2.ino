@@ -2,7 +2,7 @@
 Mechatronic Marionette
 Authors: Rebecca Patterson, Ziyu (Selina) Wang
 Keyboard Control Mode: Type in the mode you want (1~5) in the Serial Monitor
-Buttons Control Mode: Press the button corresponding to the motion (1: right hand wave, 2: left hand wave, 3: jump, 4: march, 5: dance, 6: stop)
+Buttons Control Mode: Press the button corresponding to the motion (1: right hand wave, 2: left hand wave, 3: jump, 4: march, 5: dance, 6: stop, 7: bow)
 References: Bounce2 Library: http://forum.arduino.cc/index.php?topic=266132.0; http://playground.arduino.cc/code/bounce; https://github.com/thomasfredericks/Bounce2/wiki; 
             EasyButton: http://playground.arduino.cc/Code/EasyButton; 
             Button: https://github.com/ubugnu/Arduino/tree/master/Button;
@@ -11,7 +11,7 @@ References: Bounce2 Library: http://forum.arduino.cc/index.php?topic=266132.0; h
 
 
 
-//!!!!Add a new mode and adjust everything accordingly!!!
+//!!!!Run mode 7 for bowing!!!
 
 
 
@@ -54,6 +54,7 @@ int mode3counter = 0;
 int mode4counter = 0;
 int mode5counter = 0;
 int mode6counter = 0;
+int mode7counter = 0;
 const int buttonPin1 = 8;    
 const int buttonPin2 = 9;
 const int buttonPin3 = 10;
@@ -151,7 +152,7 @@ void loop() {
   {
     keyboardInput = Serial.read();
     Serial.println(keyboardInput);
-    if (keyboardInput >=49 && keyboardInput <=53) {
+    if (keyboardInput >=49 && keyboardInput <=54) {
       mode = (keyboardInput - 48);
     }
   }
@@ -164,6 +165,7 @@ void loop() {
     mode4counter = 0;
     mode5counter = 0;
     mode6counter = 0;
+    mode7counter = 0;
   }
 
 //  button1.update();
@@ -869,4 +871,59 @@ void loop() {
       bottomMotor->run(RELEASE);
       }
     }
+else if (mode==7) { // BOW
+    Serial.println("BOW");
+    if (mode7counter == 0) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > speed1/3) {            // wait for two second
+      previousMillis = currentMillis;
+      mode7counter++;
+    righthandMotor->run(RELEASE);
+    lefthandMotor->run(RELEASE);
+    leftfootMotor->run(RELEASE);
+    rightfootMotor->run(RELEASE);
+    lateralrighthandMotor->run(RELEASE);
+    laterallefthandMotor->run(RELEASE);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(BACKWARD);
+    leftshoulderMotor->run(RELEASE);
+    bottomMotor->run(RELEASE);
+    }
+    }
+    if (mode7counter == 1) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
+      previousMillis = currentMillis;
+      mode7counter++;
+    lefthandMotor->run(RELEASE);
+    righthandMotor->run(RELEASE);
+    leftfootMotor->run(RELEASE);
+    rightfootMotor->run(RELEASE);
+    lateralrighthandMotor->run(RELEASE);
+    laterallefthandMotor->run(RELEASE);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(FORWARD);
+    leftshoulderMotor->run(RELEASE);
+    bottomMotor->run(RELEASE);
+    }
+    }
+    if (mode7counter == 2) {
+        currentMillis = millis();
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
+      previousMillis = currentMillis;
+      mode7counter = 0;
+    lefthandMotor->run(RELEASE);
+    righthandMotor->run(RELEASE);
+    leftfootMotor->run(RELEASE);
+    rightfootMotor->run(RELEASE);
+    lateralrighthandMotor->run(RELEASE);
+    laterallefthandMotor->run(RELEASE);
+    rightshoulderMotor->run(RELEASE);
+    headMotor->run(RELEASE);
+    leftshoulderMotor->run(RELEASE);
+    bottomMotor->run(RELEASE);
+    mode = 6;
+    }
+    }
+  }
 }
