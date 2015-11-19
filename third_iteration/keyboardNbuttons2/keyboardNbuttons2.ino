@@ -8,6 +8,13 @@ References: Bounce2 Library: http://forum.arduino.cc/index.php?topic=266132.0; h
             Button: https://github.com/ubugnu/Arduino/tree/master/Button;
 */
 
+
+
+
+//!!!!Add a new mode and adjust everything accordingly!!!
+
+
+
 #include <Wire.h>
 #include <Adafruit_MotorShield.h>
 #include "utility/Adafruit_PWMServoDriver.h"
@@ -36,6 +43,7 @@ Adafruit_DCMotor *bottomMotor = AFMSMotorShield3.getMotor(2);  // Motor 10
 Adafruit_DCMotor *spare1Motor = AFMSMotorShield3.getMotor(3);  // Motor 11
 Adafruit_DCMotor *spare2Motor = AFMSMotorShield3.getMotor(4);  // Motor 12
 
+int speed1 = 1500;
 unsigned long currentMillis = 0; // Millis used to determine how long each motion is
 unsigned long previousMillis = 0;
 int preMode = 6;
@@ -123,10 +131,10 @@ void setup() {
     AFMSMotorShield2.begin();
     AFMSMotorShield3.begin();
     // Set the speed to start, from 0 (off) to 255 (max speed)
-    lefthandMotor->setSpeed(250);
-    righthandMotor->setSpeed(250);
-    leftfootMotor->setSpeed(150);
-    rightfootMotor->setSpeed(150);
+    lefthandMotor->setSpeed(100);
+    righthandMotor->setSpeed(100);
+    leftfootMotor->setSpeed(100);
+    rightfootMotor->setSpeed(100);
     laterallefthandMotor->setSpeed(250);
     lateralrighthandMotor->setSpeed(250);
     rightshoulderMotor->setSpeed(150);
@@ -158,37 +166,49 @@ void loop() {
     mode6counter = 0;
   }
 
-  button1.update();
-  button2.update();
-  button3.update();
-  button4.update();
-  button5.update();
-  button6.update();
-  
-  if(button1.read()==1){
+//  button1.update();
+//  button2.update();
+//  button3.update();
+//  button4.update();
+//  button5.update();
+//  button6.update();
+
+  if (button1.update() ) {
+    //if (button1.read()) {
         mode = 1;
+  //}
   }
-  if(button2.read()==1){
+   if (button2.update() ) {
+    //if (button2.read()) {
         mode = 2;
-  }
-  if(button3.read()==1){
+  //}
+   }
+   if (button3.update() ) {
+    if (button3.read()) {
         mode = 3;
   }
-  if(button4.read()==1){
+   }
+   if (button4.update() ) {
+    if (button4.read()) {
         mode = 4;
   }
-  if(button5.read()==1){
+   }
+   if (button5.update() ) {
+    if (button5.read()) {
         mode = 5;
   }
-  if(button6.read()==1){
+   }
+   if (button6.update() ) {
+    if (button6.read()) {
         mode = 6;
   }
+   }
       
   if (mode == 1) {  // Right hand wave
     Serial.println("RIGHT HAND WAVE");
       if (mode1counter == 0) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 1000) {            // wait for two second
+      if (currentMillis - previousMillis > 500) {            // wait for two second
       previousMillis = currentMillis;
       mode1counter++;
       Serial.println(mode1counter);
@@ -207,7 +227,7 @@ void loop() {
       
       if (mode1counter == 1) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > 1500) {            // wait for two second
       previousMillis = currentMillis;
       mode1counter++;
       Serial.println(mode1counter);
@@ -226,7 +246,7 @@ void loop() {
       
       if (mode1counter == 2) {
       currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      if (currentMillis - previousMillis > 1500) {            // wait for half a second
       previousMillis = currentMillis;
       mode1counter++;
       Serial.println(mode1counter);
@@ -244,7 +264,7 @@ void loop() {
       }
       if (mode1counter == 3) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > 1500) {            // wait for two second
       previousMillis = currentMillis;
       mode1counter++;
       Serial.println(mode1counter);
@@ -263,7 +283,7 @@ void loop() {
       
       if (mode1counter == 4) {
       currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      if (currentMillis - previousMillis > 1500) {            // wait for half a second
       previousMillis = currentMillis;
       mode1counter++;
       Serial.println(mode1counter);
@@ -281,7 +301,7 @@ void loop() {
       }
       if (mode1counter == 5) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > 1500) {            // wait for two second
       previousMillis = currentMillis;
       mode1counter++;
       Serial.println(mode1counter);
@@ -300,7 +320,7 @@ void loop() {
       
       if (mode1counter == 6) {
       currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      if (currentMillis - previousMillis > 1500) {            // wait for half a second
       previousMillis = currentMillis;
       mode1counter++;
       Serial.println(mode1counter);
@@ -318,7 +338,7 @@ void loop() {
       }
       if (mode1counter == 7) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > 1500) {            // wait for two second
       previousMillis = currentMillis;
       mode1counter++;
       Serial.println(mode1counter);
@@ -337,7 +357,7 @@ void loop() {
       
       if (mode1counter == 8) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      if (currentMillis - previousMillis > 1150) {            // wait for half a second
       previousMillis = currentMillis;
       mode1counter = 0;
       Serial.println(mode1counter);
@@ -360,7 +380,7 @@ void loop() {
     Serial.println("LEFT HAND WAVE");
       if (mode2counter == 0) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 1000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1/3) {            // wait for two second
       previousMillis = currentMillis;
       mode2counter++;
       Serial.println(mode2counter);
@@ -379,7 +399,7 @@ void loop() {
       
       if (mode2counter == 1) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode2counter++;
       Serial.println(mode2counter);
@@ -398,7 +418,7 @@ void loop() {
       
       if (mode2counter == 2) {
       currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      if (currentMillis - previousMillis > speed1) {            // wait for half a second
       previousMillis = currentMillis;
       mode2counter++;
       Serial.println(mode2counter);
@@ -416,7 +436,7 @@ void loop() {
       }
       if (mode2counter == 3) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode2counter++;
       Serial.println(mode2counter);
@@ -435,7 +455,7 @@ void loop() {
       
       if (mode2counter == 4) {
       currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      if (currentMillis - previousMillis > speed1) {            // wait for half a second
       previousMillis = currentMillis;
       mode2counter++;
       Serial.println(mode2counter);
@@ -453,7 +473,7 @@ void loop() {
       }
       if (mode2counter == 5) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode2counter++;
       Serial.println(mode2counter);
@@ -472,7 +492,7 @@ void loop() {
       
       if (mode2counter == 6) {
       currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      if (currentMillis - previousMillis > speed1) {            // wait for half a second
       previousMillis = currentMillis;
       mode2counter++;
       Serial.println(mode2counter);
@@ -490,7 +510,7 @@ void loop() {
       }
       if (mode2counter == 7) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode2counter++;
       Serial.println(mode2counter);
@@ -509,7 +529,7 @@ void loop() {
       
       if (mode2counter == 8) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      if (currentMillis - previousMillis > speed1-250) {            // wait for half a second
       previousMillis = currentMillis;
       mode2counter = 0;
       Serial.println(mode2counter);
@@ -532,7 +552,7 @@ void loop() {
     Serial.println("JUMP");
     if (mode3counter == 0) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode3counter++;
     righthandMotor->run(FORWARD);
@@ -549,7 +569,7 @@ void loop() {
     }
     if (mode3counter == 1) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode3counter++;
     righthandMotor->run(BACKWARD);
@@ -566,7 +586,7 @@ void loop() {
     }
     if (mode3counter == 2) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode3counter++;
     righthandMotor->run(RELEASE);
@@ -583,7 +603,7 @@ void loop() {
     }
     if (mode3counter == 3) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode3counter++;
     righthandMotor->run(RELEASE);
@@ -600,7 +620,7 @@ void loop() {
     }
     if (mode3counter == 4) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      if (currentMillis - previousMillis > speed1-250) {            // wait for half a second
       previousMillis = currentMillis;
       mode3counter = 0;
       Serial.println(mode3counter);
@@ -622,7 +642,7 @@ void loop() {
     Serial.println("MARCH");
     if (mode4counter == 0) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode4counter++;
     righthandMotor->run(FORWARD);
@@ -639,7 +659,7 @@ void loop() {
     }
     if (mode4counter == 1) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode4counter++;
     lefthandMotor->run(RELEASE);
@@ -656,10 +676,10 @@ void loop() {
     }
     if (mode4counter == 2) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1-250) {            // wait for two second
       previousMillis = currentMillis;
       mode4counter++;
-    lefthandMotor->run(FORWARD);
+    lefthandMotor->run(BACKWARD);
     righthandMotor->run(RELEASE);
     rightfootMotor->run(FORWARD);
     leftfootMotor->run(RELEASE);
@@ -673,11 +693,11 @@ void loop() {
     }
     if (mode4counter == 3) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode4counter++;
     righthandMotor->run(RELEASE);
-    lefthandMotor->run(BACKWARD);
+    lefthandMotor->run(FORWARD);
     rightfootMotor->run(BACKWARD);
     leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(RELEASE);
@@ -690,7 +710,7 @@ void loop() {
     }
     if (mode4counter == 4) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      if (currentMillis - previousMillis > speed1-250) {            // wait for half a second
       previousMillis = currentMillis;
       mode4counter = 0;
       Serial.println(mode4counter);
@@ -713,7 +733,7 @@ void loop() {
     Serial.println("DANCE");
     if (mode5counter == 0) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode5counter++;
     lefthandMotor->run(FORWARD);
@@ -730,7 +750,7 @@ void loop() {
     }
     if (mode5counter == 1) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode5counter++;
     righthandMotor->run(RELEASE);
@@ -747,7 +767,7 @@ void loop() {
     }
     if (mode5counter == 2) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;   
       mode5counter++;
     lefthandMotor->run(BACKWARD);
@@ -764,7 +784,7 @@ void loop() {
     }
     if (mode5counter == 3) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode5counter++;
     lefthandMotor->run(RELEASE);
@@ -781,7 +801,7 @@ void loop() {
     }
     if (mode5counter == 4) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;
       mode5counter++;
     righthandMotor->run(RELEASE);
@@ -798,7 +818,7 @@ void loop() {
     }
     if (mode5counter == 5) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for two second
+      if (currentMillis - previousMillis > speed1) {            // wait for two second
       previousMillis = currentMillis;   
       mode5counter++;
     lefthandMotor->run(RELEASE);
@@ -815,7 +835,7 @@ void loop() {
     }
     if (mode5counter == 6) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 3000) {            // wait for half a second
+      if (currentMillis - previousMillis > speed1-250) {            // wait for half a second
       previousMillis = currentMillis;
       mode5counter = 0;
       Serial.println(mode5counter);
