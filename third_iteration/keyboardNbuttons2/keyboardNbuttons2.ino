@@ -8,13 +8,6 @@ References: Bounce2 Library: http://forum.arduino.cc/index.php?topic=266132.0; h
             Button: https://github.com/ubugnu/Arduino/tree/master/Button;
 */
 
-
-
-
-//!!!!Run mode 7 for bowing!!!
-
-
-
 #include <Wire.h>
 #include <Adafruit_MotorShield.h>
 #include "utility/Adafruit_PWMServoDriver.h"
@@ -60,7 +53,7 @@ const int buttonPin2 = 9;
 const int buttonPin3 = 10;
 const int buttonPin4 = 11;
 const int buttonPin5 = 12;
-const int buttonPin6 =13;
+const int buttonPin6 = 13;
 int currButton1State = 0; // start off our variables - this is saying WHAT IS HAPPENING WITH THE BUTTON NOW (high/low)
 int preButton1State = 0;
 int currButton2State = 0;
@@ -191,9 +184,9 @@ void loop() {
   }
    }
    if (button4.update() ) {
-    if (button4.read()) {
+    //if (button4.read()) {
         mode = 4;
-  }
+  //}
    }
    if (button5.update() ) {
     if (button5.read()) {
