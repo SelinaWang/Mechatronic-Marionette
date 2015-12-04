@@ -1,6 +1,6 @@
 /*
 Mechatronic Marionette
-Authors: Rebecca Patterson, Ziyu (Selina) Wang
+Authors: Rebecca Gettys, Ziyu (Selina) Wang
 Keyboard Control Mode: Type in the mode you want (1~5) in the Serial Monitor
 Buttons Control Mode: Press the button corresponding to the motion (1: right hand wave, 2: left hand wave, 3: jump, 4: march, 5: dance, 6: stop)
 */
