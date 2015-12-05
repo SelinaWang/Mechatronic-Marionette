@@ -66,14 +66,14 @@ void setup() {
     AFMSMotorShield2.begin();
     // AFMSMotorShield3.begin();
     // Set the speed to start, from 0 (off) to 255 (max speed)
-    lefthandMotor->setSpeed(250);
-    righthandMotor->setSpeed(250);
-    leftfootMotor->setSpeed(150);
-    rightfootMotor->setSpeed(150);
-    laterallefthandMotor->setSpeed(200);
-    lateralrighthandMotor->setSpeed(200);
-    upperbodyMotor->setSpeed(200);
-    bottomMotor->setSpeed(200);
+    lefthandMotor->setSpeed(50);
+    righthandMotor->setSpeed(50);
+    leftfootMotor->setSpeed(50);
+    rightfootMotor->setSpeed(50);
+    laterallefthandMotor->setSpeed(50);
+    lateralrighthandMotor->setSpeed(50);
+    upperbodyMotor->setSpeed(50);
+    bottomMotor->setSpeed(50);
     // if analog input pin 0 is unconnected, random analog
     // noise will cause the call to randomSeed() to generate
     // different seed numbers each time the sketch runs.
