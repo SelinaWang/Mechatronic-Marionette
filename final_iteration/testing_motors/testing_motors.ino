@@ -1,13 +1,12 @@
-
-#include <Wire.h>
+#include <Wire.h>9
 #include <Adafruit_MotorShield.h>
 #include "utility/Adafruit_PWMServoDriver.h"
 #include <EasyButton.h>
 
 // Create the motor shield object with stacking I2C addresses
 Adafruit_MotorShield AFMSMotorShield1 = Adafruit_MotorShield(0x60);
-Adafruit_MotorShield AFMSMotorShield2 = Adafruit_MotorShield(0x61);
-//Adafruit_MotorShield AFMSMotorShield3 = Adafruit_MotorShield(0x62);
+Adafruit_MotorShield AFMSMotorShield2 = Adafruit_MotorShield(0x63);
+//Adafruit_MotorShield AFMSMotorShield3 = Adafruit_MotorShield(0x63);
 
 // Initiate the motors controlling the left and right side of the body
 Adafruit_DCMotor *lefthandMotor = AFMSMotorShield1.getMotor(1);  // Motor 1
@@ -26,7 +25,7 @@ Adafruit_DCMotor *bottomMotor = AFMSMotorShield2.getMotor(4);  // Motor 8
 unsigned long currentMillis = 0; // Millis used to determine how long each motion is
 unsigned long previousMillis = 0;
 //int preMode = 10;
-int mode = 10;
+int mode = 9;
 //int mode1counter = 0;
 //int mode2counter = 0;
 //int mode3counter = 0;
@@ -57,7 +56,7 @@ void setup() {
     Serial.begin(9600);
     AFMSMotorShield1.begin();
     AFMSMotorShield2.begin();
-    // AFMSMotorShield3.begin();
+//    AFMSMotorShield3.begin();
     // Set the speed to start, from 0 (off) to 255 (max speed)
     lefthandMotor->setSpeed(50);
     righthandMotor->setSpeed(50);
@@ -89,31 +88,24 @@ void loop() {
     righthandMotor->run(FORWARD);
   }
   if (mode==2) {
-    righthandMotor->run(RELEASE);
     lefthandMotor->run(FORWARD);
   }
   if (mode==3) {
-    lefthandMotor->run(RELEASE);
     rightfootMotor->run(FORWARD);
   }
   if (mode==4) {
-    rightfootMotor->run(RELEASE);
     leftfootMotor->run(FORWARD);
   }
   if (mode==5) {
-    leftfootMotor->run(RELEASE);
     lateralrighthandMotor->run(FORWARD);
   }
   if (mode==6) {
-    lateralrighthandMotor->run(RELEASE);
     laterallefthandMotor->run(FORWARD);
   }
   if (mode==7) {
-    laterallefthandMotor->run(RELEASE);
     upperbodyMotor->run(FORWARD);
   }
   if (mode==8) {
-    upperbodyMotor->run(RELEASE);
     bottomMotor->run(FORWARD);
   }
   if (mode==9) {
