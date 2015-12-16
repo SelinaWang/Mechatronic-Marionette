@@ -14,7 +14,6 @@ Modes: 0: STOP, 1: Wave, 2: bow, 3: jump, 4: march, 5: hip drop dance, 6: drop d
 // Create the motor shield object with stacking I2C addresses
 Adafruit_MotorShield AFMSMotorShield1 = Adafruit_MotorShield(0x60);
 Adafruit_MotorShield AFMSMotorShield2 = Adafruit_MotorShield(0x63);
-//Adafruit_MotorShield AFMSMotorShield3 = Adafruit_MotorShield(0x62);
 
 // Initiate the motors controlling the left and right side of the body
 Adafruit_DCMotor *lefthandMotor = AFMSMotorShield1.getMotor(1);  // Motor 1
@@ -25,15 +24,12 @@ Adafruit_DCMotor *laterallefthandMotor = AFMSMotorShield2.getMotor(1);  // Motor
 Adafruit_DCMotor *lateralrighthandMotor = AFMSMotorShield2.getMotor(2);  // Motor 6
 Adafruit_DCMotor *upperbodyMotor = AFMSMotorShield2.getMotor(3);  // Motor 7
 Adafruit_DCMotor *bottomMotor = AFMSMotorShield2.getMotor(4);  // Motor 8
-//Adafruit_DCMotor *leftshoulderMotor = AFMSMotorShield3.getMotor(1);  // Motor 9
-//Adafruit_DCMotor *bottomMotor = AFMSMotorShield3.getMotor(2);  // Motor 10
-//Adafruit_DCMotor *spare1Motor = AFMSMotorShield3.getMotor(3);  // Motor 11
-//Adafruit_DCMotor *spare2Motor = AFMSMotorShield3.getMotor(4);  // Motor 12
 
 unsigned long currentMillis = 0; // Millis used to determine how long each motion is
 unsigned long previousMillis = 0;
 int preMode = 0;
 int mode = 0;
+int mode0counter = 0;
 int mode1counter = 0;
 int mode2counter = 0;
 int mode3counter = 0;
@@ -128,19 +124,18 @@ void loop() {
           mode = 5;
     }
     if(button6.IsPushed()){
-        // print a random number from 1 to 10
-        mode = round(random(1,10));
+        mode = round(random(6,10));
         Serial.println(mode);
     }
   }
 
   if (mode == 1) {  // Right hand wave
-    lefthandMotor->setSpeed(150);
-    righthandMotor->setSpeed(150);
+    lefthandMotor->setSpeed(200);
+    righthandMotor->setSpeed(200);
     leftfootMotor->setSpeed(50);
     rightfootMotor->setSpeed(50);
-    laterallefthandMotor->setSpeed(150);
-    lateralrighthandMotor->setSpeed(150);
+    laterallefthandMotor->setSpeed(200);
+    lateralrighthandMotor->setSpeed(200);
     upperbodyMotor->setSpeed(50);
     bottomMotor->setSpeed(50);
     Serial.println("RIGHT HAND WAVE");
@@ -164,7 +159,7 @@ void loop() {
       
       if (mode1counter == 1) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 2100) {            // wait for 3 second
+      if (currentMillis - previousMillis > 1000) {            // wait for 3 second
       previousMillis = currentMillis;
       mode1counter++;
       righthandMotor->run(RELEASE);
@@ -182,7 +177,7 @@ void loop() {
       
       if (mode1counter == 2) {
       currentMillis = millis();
-      if (currentMillis - previousMillis > 2000) {            // wait for 3 second
+      if (currentMillis - previousMillis > 1600) {            // wait for 3 second
       previousMillis = currentMillis;
       mode1counter++;
       righthandMotor->run(RELEASE);
@@ -199,7 +194,7 @@ void loop() {
       }
       if (mode1counter == 3) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 2500) {            // wait for 3 second
+      if (currentMillis - previousMillis > 2000) {            // wait for 3 second
       previousMillis = currentMillis;
       mode1counter++;
       righthandMotor->run(RELEASE);
@@ -217,7 +212,7 @@ void loop() {
       
       if (mode1counter == 4) {
       currentMillis = millis();
-      if (currentMillis - previousMillis > 2500) {            // wait for 3 second
+      if (currentMillis - previousMillis > 2000) {            // wait for 3 second
       previousMillis = currentMillis;
       mode1counter++;
       righthandMotor->run(RELEASE);
@@ -234,7 +229,7 @@ void loop() {
       }
       if (mode1counter == 5) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 2500) {            // wait for 3 second
+      if (currentMillis - previousMillis > 2000) {            // wait for 3 second
       previousMillis = currentMillis;
       mode1counter++;
       righthandMotor->run(RELEASE);
@@ -252,7 +247,7 @@ void loop() {
       
       if (mode1counter == 6) {
       currentMillis = millis();
-      if (currentMillis - previousMillis > 2500) {            // wait for 3 second
+      if (currentMillis - previousMillis > 2000) {            // wait for 3 second
       previousMillis = currentMillis;
       mode1counter++;
       righthandMotor->run(RELEASE);
@@ -269,7 +264,7 @@ void loop() {
       }
       if (mode1counter == 7) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 1700) {            // wait for 3 second
+      if (currentMillis - previousMillis > 1300) {            // wait for 3 second
       previousMillis = currentMillis;
       mode1counter++;
       righthandMotor->run(BACKWARD);
@@ -287,7 +282,7 @@ void loop() {
       
       if (mode1counter == 8) {
         currentMillis = millis();
-      if (currentMillis - previousMillis > 2075) {            // wait for 3 second
+      if (currentMillis - previousMillis > 1500) {            // wait for 3 second
       previousMillis = currentMillis;
       mode1counter = 0;
       righthandMotor->run(RELEASE);
@@ -1781,6 +1776,7 @@ void loop() {
     
   else if (mode == 0) {  // STOP
     Serial.println("STOP");
+    if (mode0counter == 0) {
       righthandMotor->run(RELEASE);
       lefthandMotor->run(RELEASE);
       rightfootMotor->run(RELEASE);
@@ -1789,5 +1785,6 @@ void loop() {
       laterallefthandMotor->run(RELEASE);
       upperbodyMotor->run(RELEASE);
       bottomMotor->run(RELEASE);
+    }
     }
 }

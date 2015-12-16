@@ -112,16 +112,13 @@ void loop() {
     mode6counter = 0;
   }
 
-  button6.update();
   button1.update();
   button2.update();
   button3.update();
   button4.update();
   button5.update();
+  button6.update();
 
-  if(button6.IsPushed()){
-        mode = 6;
-  }
   if(button1.IsPushed()){
         mode = 1;
   }
@@ -136,6 +133,9 @@ void loop() {
   }
   if(button5.IsPushed()){
         mode = 5;
+  }
+  if(button6.IsPushed()){
+        mode = 6;
   }
 
   if (mode == 1) {  // Right hand wave
